@@ -28,6 +28,15 @@ function cleanName(name: string) {
   return dot > 0 ? `${name.slice(0, dot)}-clean${name.slice(dot)}` : `${name}-clean`
 }
 
+function googleMapsUrl(lat: number, lon: number) {
+  return `https://www.google.com/maps/search/?api=1&query=${lat.toFixed(6)},${lon.toFixed(6)}`
+}
+
+// Photo GPS is WGS84; Amap accepts it directly with coordinate=wgs84, so the pin isn't shifted in mainland China.
+function amapUrl(lat: number, lon: number) {
+  return `https://uri.amap.com/marker?position=${lon.toFixed(6)},${lat.toFixed(6)}&name=${encodeURIComponent('照片拍摄地点')}&coordinate=wgs84&callnative=0`
+}
+
 function download(item: Item) {
   const a = document.createElement('a')
   a.href = item.url
@@ -191,16 +200,20 @@ function PhotoCard({ item }: { item: Item }) {
               下载干净的照片
             </Button>
             {hasGps && (
-              <Button size="sm" variant="outline" asChild>
-                <a
-                  href={`https://www.openstreetmap.org/?mlat=${info.lat}&mlon=${info.lon}#map=16/${info.lat}/${info.lon}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <MapPin />
-                  在地图上看
-                </a>
-              </Button>
+              <>
+                <Button size="sm" variant="outline" asChild>
+                  <a href={googleMapsUrl(info.lat!, info.lon!)} target="_blank" rel="noreferrer">
+                    <MapPin />
+                    Google 地图
+                  </a>
+                </Button>
+                <Button size="sm" variant="outline" asChild>
+                  <a href={amapUrl(info.lat!, info.lon!)} target="_blank" rel="noreferrer">
+                    <MapPin />
+                    高德地图
+                  </a>
+                </Button>
+              </>
             )}
             <span className="text-muted-foreground text-xs">
               {formatSize(item.originalSize)} → {formatSize(item.cleaned.size)}
