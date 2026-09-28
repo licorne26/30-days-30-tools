@@ -1,0 +1,75 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..900&family=Noto+Sans+SC:wght@500;700;900&display=swap">
+<style>
+/* 1080×1440 portrait stage. Vertical budget:
+   pill 60–106 · caption 118–~250 · window 318–1218 · subtitle 1236–1366 · steps 1398 */
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1440px;overflow:hidden}
+body{background:radial-gradient(900px 700px at 80% -10%,#1f1f1f 0%,#0a0a0a 60%);color:#fafafa;font-family:'Geist','Noto Sans SC',sans-serif;position:relative}
+.pill{position:absolute;left:60px;top:60px;font-size:24px;font-weight:500;color:#a3a3a3;border:1px solid #2a2a2a;border-radius:999px;padding:8px 18px}
+.cap{position:absolute;left:60px;right:60px;top:118px}
+.cap h1{font-size:62px;font-weight:900;letter-spacing:-.5px;line-height:1.2}
+.cap h1 .n{color:#737373;margin-right:10px;font-family:'Geist'}
+.cap p{font-size:28px;color:#a3a3a3;margin-top:12px;font-weight:500}
+.win{position:absolute;left:60px;top:318px;width:960px;height:900px;border-radius:26px;border:1px solid #262626;background:#0a0a0a;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.7)}
+.bar{height:52px;display:flex;align-items:center;gap:10px;padding:0 20px;border-bottom:1px solid #262626;background:#111}
+.bar i{width:12px;height:12px;border-radius:50%;background:#333;display:block}
+.url{margin-left:14px;font-size:18px;color:#8a8a8a;background:#1a1a1a;border-radius:8px;padding:6px 14px;font-family:'Geist'}
+/* The page is laid out at 960/scale CSS px and scaled up, so its text reads on a phone. */
+iframe{border:0;display:block;background:#0a0a0a;transform-origin:0 0}
+.steps{position:absolute;left:0;right:0;bottom:36px;display:flex;justify-content:center;gap:12px}
+.steps b{width:44px;height:6px;border-radius:3px;background:#2a2a2a;display:block}
+.steps b.on{background:#fafafa}
+/* Subtitle bar: the narration, for people watching muted. At most two lines. */
+#sub-bar{position:absolute;left:60px;right:60px;bottom:74px;height:130px;display:flex;align-items:flex-end;justify-content:center;z-index:12}
+#sub-bar span{font-size:34px;line-height:1.4;font-weight:700;text-align:center;color:#fafafa;background:rgba(10,10,10,.72);border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;padding:8px 24px;max-width:960px;text-wrap:balance;word-break:keep-all;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#sub-bar span:empty{display:none}
+#layer{position:absolute;inset:0;z-index:4}
+#fly{position:absolute;width:300px;border-radius:10px;box-shadow:0 30px 60px rgba(0,0,0,.6);border:3px solid #fafafa;opacity:0;z-index:5}
+#fly img{width:100%;display:block;border-radius:7px}
+#cursor{position:absolute;left:0;top:0;width:44px;height:44px;opacity:0;z-index:14;transform-origin:4px 4px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
+/* End card */
+#end{position:absolute;inset:0;background:#0a0a0a;opacity:0;z-index:10;display:flex;flex-direction:column;align-items:center;padding-top:96px}
+#end .k{font-size:26px;color:#8a8a8a;font-weight:500;letter-spacing:.08em}
+#end h2{font-size:96px;font-weight:900;letter-spacing:-2px;margin-top:18px}
+#end .img{margin-top:40px;border-radius:28px;overflow:hidden;box-shadow:0 30px 90px rgba(52,211,153,.16)}
+#end .img img{display:block;height:600px;width:auto;max-width:760px}
+#end .url2{margin-top:40px;font-size:34px;color:#34d399;font-family:'Geist';font-weight:600}
+#end .note{margin-top:14px;font-size:24px;color:#8a8a8a;font-weight:500}
+#layer,#end,#fly,#cursor,#sub-bar,.cap,.pill,.steps{pointer-events:none}
+</style></head><body>
+<div class="pill" id="pill"></div>
+<div class="cap" id="cap"><h1><span class="n" id="num"></span><span id="title"></span></h1><p id="sub"></p></div>
+<div class="win" id="win"><div class="bar"><i></i><i></i><i></i><span class="url" id="url"></span></div><iframe id="app"></iframe></div>
+<div id="layer"></div>
+<div id="fly"><img id="fly-img"></div>
+<svg id="cursor" viewBox="0 0 24 24"><path d="M3 2l7.5 19 2.6-7.9L21 10.5z" fill="#fafafa" stroke="#0a0a0a" stroke-width="1.4" stroke-linejoin="round"/></svg>
+<div id="sub-bar"><span id="sub-text"></span></div>
+<div class="steps" id="steps"></div>
+<div id="end">
+  <div class="k" id="end-k"></div>
+  <h2 id="end-title"></h2>
+  <div class="img"><img id="end-img"></div>
+  <p class="url2" id="end-url"></p>
+  <p class="note" id="end-note"></p>
+</div>
+<script>
+// Everything day-specific comes in through setup(), called by capture.py.
+function setup(c) {
+  document.getElementById('pill').textContent = c.pill
+  document.getElementById('url').textContent = c.urlLabel
+  document.getElementById('steps').innerHTML = '<b></b>'.repeat(c.steps)
+  const f = document.getElementById('app')
+  f.style.width = 960 / c.scale + 'px'
+  f.style.height = 848 / c.scale + 'px'
+  f.style.transform = `scale(${c.scale})`
+  f.src = c.app
+  document.getElementById('end-k').textContent = c.end.kicker
+  document.getElementById('end-title').textContent = c.end.title
+  document.getElementById('end-url').textContent = c.end.url
+  document.getElementById('end-note').textContent = c.end.note
+  return new Promise((r) => f.addEventListener('load', r, { once: true }))
+}
+</script>
+</body></html>

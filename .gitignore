@@ -22,3 +22,14 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Secrets
+.env
+
+prompts
+
+# Promo video pipeline
+promo/out/
+promo/.cache/
+promo/.venv/
+__pycache__/
