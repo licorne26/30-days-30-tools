@@ -74,7 +74,9 @@ promo/.venv/bin/python promo/make.py day04 --no-cover
 `Scene` 的字段：
 
 - `cap`：顶部字幕 `("01", "标题", "一行说明")`。结尾卡用 `None`，这时顶部字幕隐藏，结尾卡盖住画面。
-- `say` / `style`：旁白文字和语气。旁白也会显示在底部字幕条上，最多两行。
+- `say`：旁白文字，也会显示在底部字幕条上，最多两行。
+- 语气统一由分镜文件里的 `STYLE` 控制（不写就用 `tts.DEFAULT_STYLE`：平稳、清晰的讲解语气）。整段旁白在**一次请求**里读完，再按句间停顿切开，所以每句的音色和情绪一致；切不开时会自动退回逐句请求（语气相同）。`Scene` 里的 `style` 字段已不再使用。
+- 默认音色是 `Charon`（偏讲解），可以在 `.env` 里用 `GEMINI_TTS_VOICE` 换。
 - `act(c)`：这一镜的动作。开始时字幕已经切换好了。
 
 `act` 里常用的 `c`（`lib/capture.py` 的 `Capture`）：

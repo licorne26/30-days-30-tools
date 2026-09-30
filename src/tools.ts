@@ -52,6 +52,14 @@ export const tools: Tool[] = [
     prompt:
       '做一个纯浏览器端的图片压缩工具：拖入一张或多张图片，输入目标大小（比如 50KB、200KB），自动找到最高画质把每张压到目标以内，可以拖动滑块对比压缩前后，一键打包下载，不上传、不联网。',
   },
+  {
+    day: 6,
+    slug: 'day06-qr-code',
+    title: '二维码生成器',
+    description: 'WiFi 二维码、网址、名片一键生成，可换颜色、码点样式、加 Logo，导出 PNG 和 SVG。',
+    prompt:
+      '做一个纯浏览器端的二维码生成器：支持 WiFi（扫码直接连网）、网址文字和名片三种内容，可以换配色、码点和码眼样式、在中间加 Logo、在下面加一行说明文字，实时预览，导出高清 PNG 和 SVG，WiFi 密码不上传、不联网。',
+  },
 ]
 
 export function toolBySlug(slug: string) {

@@ -46,8 +46,11 @@ def plan(day):
     """Synthesize every line, then size each scene to its narration on the beat grid."""
     beat = 60 / day.BPM
     start = 0
+    # One take for the whole script keeps the voice and tone steady from line to line.
+    voices = tts.speak_script([s.say for s in day.SCENES], getattr(day, "STYLE", tts.DEFAULT_STYLE))
+    for s, (path, sec) in zip(day.SCENES, voices):
+        s.voice, s.voice_sec = path, sec
     for s in day.SCENES:
-        s.voice, s.voice_sec = tts.speak(s.say, s.style)
         s.beats = math.ceil((s.voice_sec + PAD) / beat - 1e-9) + s.extra_beats
         s.start, start = start, start + s.beats
     return start

@@ -4,6 +4,8 @@ from pathlib import Path
 from promo.lib.capture import Scene, ease
 
 BPM = 116
+# Every line is read in one take with this style, so the narration stays steady.
+STYLE = "用平稳、清晰、语速适中的语气做产品讲解，像一段专业的演示旁白。整段保持同一种音色和情绪，不要夸张，不要忽高忽低。"
 PILL = "Day 4 / 30 · 九宫格切图"
 APP = "day04-grid-splitter"
 URL_LABEL = "licorne26.github.io/30-days-30-tools/day04-grid-splitter"
@@ -204,12 +206,12 @@ def end_card(c):
 
 SCENES = [
     Scene(("01", "九宫格还在一张张裁？", "裁歪了还得重来"),
-          "发朋友圈九宫格，你是不是还在一张一张地裁？", "带点无奈，像在跟朋友吐槽", pain),
+          "发朋友圈九宫格，你是不是还在一张一张地裁？", "", pain),
     Scene(("02", "拖进来，选好区域", "拖动平移，滚轮缩放"),
-          "现在把图拖进来，拖一拖、缩一缩，选好要切的地方就行。", "轻松自然", drop_in),
+          "现在把图拖进来，拖一拖、缩一缩，选好要切的地方就行。", "", drop_in),
     Scene(("03", "九宫格、四宫格、三连图", "右边就是发出去的样子"),
-          "九宫格、四宫格、三连图，一键切换，右边直接看发出去的效果。", "有节奏感，稍快", layouts),
+          "九宫格、四宫格、三连图，一键切换，右边直接看发出去的效果。", "", layouts),
     Scene(("04", "一键打包下载", "文件名就是发布顺序"),
-          "点一下打包下载，文件名就是发布顺序，照着一到九选就行。", "肯定、干脆", download),
-    Scene(None, "第四天，九宫格切图。免费，图片不上传，链接在视频最后。", "收尾，友好", end_card, extra_beats=4),
+          "点一下打包下载，文件名就是发布顺序，照着一到九选就行。", "", download),
+    Scene(None, "第四天，九宫格切图。免费使用，图片全程不上传。", "", end_card, extra_beats=4),
 ]

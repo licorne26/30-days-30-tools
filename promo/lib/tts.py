@@ -19,6 +19,7 @@ CACHE = ROOT / "promo" / ".cache" / "tts"
 ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 RATE = 24000  # Gemini TTS: 24 kHz, mono, 16-bit
 SILENCE_DB = -45
+DEFAULT_STYLE = "用平稳、清晰、语速适中的语气做产品讲解，像一段专业的演示旁白。整段保持同一种音色和情绪，不要夸张，不要忽高忽低。"
 
 
 def _env():
@@ -37,7 +38,7 @@ def settings():
     return {
         "key": os.environ.get("GEMINI_API_KEY", ""),
         "model": os.environ.get("GEMINI_TTS_MODEL", "gemini-3.8-flash-tts"),
-        "voice": os.environ.get("GEMINI_TTS_VOICE", "Puck"),
+        "voice": os.environ.get("GEMINI_TTS_VOICE", "Charon"),
     }
 
 
@@ -106,6 +107,61 @@ def speak(text: str, style: str = "") -> tuple[Path, float]:
         _write_wav(out, _trim(_to_pcm(raw.read_bytes())))
     with wave.open(str(out)) as w:
         return out, w.getnframes() / w.getframerate()
+
+
+def _silent_runs(pcm: np.ndarray, min_sec: float):
+    """(start, end) sample ranges quieter than SILENCE_DB for at least min_sec, 10 ms resolution."""
+    win = RATE // 100
+    n = len(pcm) // win
+    frames = pcm[: n * win].astype(np.float64).reshape(n, win) / 32768
+    quiet = 20 * np.log10(np.sqrt((frames**2).mean(1)) + 1e-12) <= SILENCE_DB
+    runs, i = [], 0
+    while i < n:
+        if quiet[i]:
+            j = i
+            while j < n and quiet[j]:
+                j += 1
+            if (j - i) * win >= min_sec * RATE:
+                runs.append((i * win, j * win))
+            i = j
+        else:
+            i += 1
+    return runs
+
+
+def speak_script(lines: list[str], style: str = "") -> list[tuple[Path, float]]:
+    """Synthesize the whole narration in ONE request so every line has the same voice and tone,
+    then cut it at the pauses between lines. Falls back to one request per line (same style)
+    if the pauses can't be found cleanly."""
+    s = settings()
+    key = hashlib.sha1("\n".join([s["model"], s["voice"], style, "script", *lines]).encode()).hexdigest()
+    outs = [CACHE / f"{key}.{i:02d}.wav" for i in range(len(lines))]
+    if not all(o.exists() for o in outs):
+        full, _ = speak(" <long pause> ".join(lines), style)
+        pcm = _to_pcm(full.read_bytes())
+        # The N-1 longest pauses are the line breaks.
+        runs = sorted(_silent_runs(pcm, 0.18), key=lambda r: r[1] - r[0], reverse=True)[: len(lines) - 1]
+        runs.sort()
+        segs = []
+        if len(runs) == len(lines) - 1:
+            cuts = [0] + [(a + b) // 2 for a, b in runs] + [len(pcm)]
+            segs = [_trim(pcm[cuts[i] : cuts[i + 1]]) for i in range(len(lines))]
+            # Sanity check: seconds per character should be similar for every line.
+            rates = [len(seg) / RATE / max(1, len(t)) for seg, t in zip(segs, lines)]
+            med = sorted(rates)[len(rates) // 2]
+            if any(r < med * 0.55 or r > med * 1.8 for r in rates):
+                segs = []
+        if not segs:
+            print("tts: could not split the one-take narration cleanly, falling back to one request per line")
+            return [speak(t, style) for t in lines]
+        CACHE.mkdir(parents=True, exist_ok=True)
+        for o, seg in zip(outs, segs):
+            _write_wav(o, seg)
+    res = []
+    for o in outs:
+        with wave.open(str(o)) as w:
+            res.append((o, w.getnframes() / w.getframerate()))
+    return res
 
 
 if __name__ == "__main__":
