@@ -1,6 +1,6 @@
 # Day 6 · 二维码生成器
 
-在线使用：https://licorne26.github.io/30-days-30-tools/day06-qr-code/
+在线使用：https://tools.licorne.uk/day06-qr-code/
 
 家里来客人，最常被问的一句是“WiFi 密码多少”。念一遍大小写和数字，对方还经常输错。做一张 WiFi 二维码贴在墙上，手机相机一扫就连上。网上的二维码生成器大多要把内容发到服务器，而 WiFi 密码恰恰是最不该上传的东西，所以这个工具全部在浏览器里生成。
 

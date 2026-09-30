@@ -24,7 +24,7 @@ from promo.lib.capture import Capture  # noqa: E402
 
 FPS = 30
 PORT = 4317
-BASE = f"http://localhost:{PORT}/30-days-30-tools/"
+BASE = f"http://localhost:{PORT}/"
 LEAD = 0.2  # narration starts this long after its scene
 PAD = 0.6  # scene = narration + PAD, rounded up to whole beats
 

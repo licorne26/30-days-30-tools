@@ -1,6 +1,6 @@
 # Day 5 · 图片压缩到指定大小
 
-在线使用：https://licorne26.github.io/30-days-30-tools/day05-image-compressor/
+在线使用：https://tools.licorne.uk/day05-image-compressor/
 
 报名照要求 50KB 以内，签证照不超过 200KB，网申系统动不动就“文件过大”。一般的压缩工具只能拖画质滑块，压完看一眼大小，不行再来一次。这个工具直接输入目标大小，每张图自动找到不超标的最高画质。
 

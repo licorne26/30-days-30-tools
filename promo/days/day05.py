@@ -13,12 +13,12 @@ BPM = 112
 STYLE = "用平稳、清晰、语速适中的语气做产品讲解，像一段专业的演示旁白。整段保持同一种音色和情绪，不要夸张，不要忽高忽低。"
 PILL = "Day 5 / 30 · 图片压缩到指定大小"
 APP = "day05-image-compressor"
-URL_LABEL = "licorne26.github.io/30-days-30-tools/day05-image-compressor"
+URL_LABEL = "tools.licorne.uk/day05-image-compressor"
 CHORDS = ["Fmaj7", "Em7", "Dm7", "Cmaj7"]
 END = {
     "kicker": "30 天 30 个一句话工具 · DAY 5",
     "title": "图片压缩到指定大小",
-    "url": "licorne26.github.io/30-days-30-tools",
+    "url": "tools.licorne.uk",
     "note": "画面、配音和配乐都是代码生成的",
 }
 COVER = {

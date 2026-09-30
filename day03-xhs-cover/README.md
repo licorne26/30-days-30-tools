@@ -1,6 +1,6 @@
 # Day 3 · 小红书封面生成器
 
-在线使用：https://licorne26.github.io/30-days-30-tools/day03-xhs-cover/
+在线使用：https://tools.licorne.uk/day03-xhs-cover/
 
 小红书上，封面决定了别人点不点进来。大字、重点词高亮、干净的排版就够用，但每次都开设计软件太麻烦。这个工具输入标题就出图。
 

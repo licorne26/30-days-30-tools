@@ -15,7 +15,7 @@ CHORDS = ["Cmaj7", "Am7", "Fmaj7", "G"]
 END = {
     "kicker": "30 天 30 个一句话工具 · DAY 6",
     "title": "二维码生成器",
-    "url": "licorne26.github.io/30-days-30-tools",
+    "url": "tools.licorne.uk",
     "note": "画面、配音和配乐都是代码生成的",
 }
 COVER = {

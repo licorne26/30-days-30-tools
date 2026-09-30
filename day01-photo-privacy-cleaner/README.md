@@ -1,6 +1,6 @@
 # Day 1 · 照片隐私清理器
 
-在线使用：https://licorne26.github.io/30-days-30-tools/day01-photo-privacy-cleaner/
+在线使用：https://tools.licorne.uk/day01-photo-privacy-cleaner/
 
 手机拍的照片里藏着 GPS 坐标、拍摄时间和手机型号，发到网上就可能暴露你家在哪。这个工具先把照片里藏的信息读出来给你看，再一键导出一张“干净”的照片。
 

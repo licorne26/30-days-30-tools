@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
 
 // Every folder named dayNN-* with an index.html becomes its own page,
-// so each tool keeps a clean URL: /30-days-30-tools/day01-xxx/
+// so each tool keeps a clean URL: /day01-xxx/
 const root = import.meta.dirname
 const toolPages = Object.fromEntries(
   readdirSync(root)
@@ -14,7 +14,7 @@ const toolPages = Object.fromEntries(
 )
 
 export default defineConfig({
-  base: '/30-days-30-tools/',
+  base: '/',
   plugins: [react(), tailwindcss()],
   resolve: { alias: { '@': resolve(root, 'src') } },
   build: {

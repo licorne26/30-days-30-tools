@@ -1,6 +1,6 @@
 # Day 4 · 九宫格切图
 
-在线使用：https://licorne26.github.io/30-days-30-tools/day04-grid-splitter/
+在线使用：https://tools.licorne.uk/day04-grid-splitter/
 
 发朋友圈、小红书想拼一张大图，得先把图切成九宫格，还得记住哪张先发。这个工具拖入图片，选好区域，直接按发布顺序打包下载。
 

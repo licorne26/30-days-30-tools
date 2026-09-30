@@ -8,12 +8,12 @@ BPM = 116
 STYLE = "用平稳、清晰、语速适中的语气做产品讲解，像一段专业的演示旁白。整段保持同一种音色和情绪，不要夸张，不要忽高忽低。"
 PILL = "Day 4 / 30 · 九宫格切图"
 APP = "day04-grid-splitter"
-URL_LABEL = "licorne26.github.io/30-days-30-tools/day04-grid-splitter"
+URL_LABEL = "tools.licorne.uk/day04-grid-splitter"
 CHORDS = ["Dm7", "Bbmaj7", "F", "C"]
 END = {
     "kicker": "30 天 30 个一句话工具 · DAY 4",
     "title": "九宫格切图",
-    "url": "licorne26.github.io/30-days-30-tools",
+    "url": "tools.licorne.uk",
     "note": "画面、配音和配乐都是代码生成的",
 }
 COVER = {

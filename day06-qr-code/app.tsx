@@ -89,7 +89,7 @@ export function App() {
   const [mode, setMode] = useState<Mode>('wifi')
   const [wifi, setWifi] = useState<Wifi>({ ssid: 'MyHome-5G', password: 'welcome2026', security: 'WPA', hidden: false })
   const [showPass, setShowPass] = useState(false)
-  const [text, setText] = useState('https://licorne26.github.io/30-days-30-tools/')
+  const [text, setText] = useState('https://tools.licorne.uk/')
   const [card, setCard] = useState<VCard>({ name: '独角兽', phone: '', email: '', org: '', title: '', url: '' })
 
   const [fg, setFg] = useState(PALETTES[0].fg)

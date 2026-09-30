@@ -1,6 +1,6 @@
 # Day 2 · 截图美化器
 
-在线使用：https://licorne26.github.io/30-days-30-tools/day02-screenshot-beautifier/
+在线使用：https://tools.licorne.uk/day02-screenshot-beautifier/
 
 发产品截图、代码截图的时候，直接贴原图总显得很随意。这个工具给截图加上渐变背景、macOS 或浏览器窗口边框、圆角和阴影，还能一键切到 X（16:9）、小红书（3:4）这些发帖比例。
 
