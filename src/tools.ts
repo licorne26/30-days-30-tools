@@ -60,6 +60,14 @@ export const tools: Tool[] = [
     prompt:
       '做一个纯浏览器端的二维码生成器：支持 WiFi（扫码直接连网）、网址文字和名片三种内容，可以换配色、码点和码眼样式、在中间加 Logo、在下面加一行说明文字，实时预览，导出高清 PNG 和 SVG，WiFi 密码不上传、不联网。',
   },
+  {
+    day: 7,
+    slug: 'day07-screenshot-stitcher',
+    title: '长截图拼接',
+    description: '多张聊天记录、网页截图自动对齐去重，拼成一张长图，还能框选打码。',
+    prompt:
+      '做一个纯浏览器端的长截图拼接工具：一次拖入多张聊天记录或网页截图，自动识别固定的顶部栏和底部栏、找到相邻截图的重叠部分并去重，拼成一张无缝长图，可以手动微调接缝、框选区域打马赛克，导出 PNG 或 JPG，不上传、不联网。',
+  },
 ]
 
 export function toolBySlug(slug: string) {
