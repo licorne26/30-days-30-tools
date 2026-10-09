@@ -100,6 +100,14 @@ export const tools: Tool[] = [
     prompt:
       '做一个纯浏览器端的证件复印件排版工具：放入手机拍的证件正反面照片，拖动四个角对准证件边缘自动拉正，按真实尺寸排在一页 A4 上，可选黑白复印效果和“仅供 XX 使用”水印，导出 PDF 直接按实际大小打印，证件照片不上传、不联网。',
   },
+  {
+    day: 12,
+    slug: 'day12-facetime-sim',
+    title: 'FaceTime 视频通话模拟器',
+    description: '放一大一小两张照片，生成 iPhone 视频通话界面的趣味截图。',
+    prompt:
+      '做一个纯浏览器端的 iPhone FaceTime 视频通话模拟器：上传两张照片，大图作为主视频方的前置摄像头画面，小图作为对面接电话的人的画面，生成一张好玩的视频通话风格截图，可以改名字、时间、电量，拖动小窗换位置，照片不上传、不联网。',
+  },
 ]
 
 export function toolBySlug(slug: string) {
